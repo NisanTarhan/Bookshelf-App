@@ -10,6 +10,7 @@ const Main = () => {
         {routes.map((route) => {
           return (
             <Route
+              key={route.path}
               path={route.path}
               exact={route.exact}
               component={(props) => {

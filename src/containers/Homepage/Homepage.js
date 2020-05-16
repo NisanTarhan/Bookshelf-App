@@ -1,57 +1,56 @@
 import React from "react";
-import {connect} from "react-redux";
-import {Books, FilterSortBar} from "../../components";
-import {getBooks} from "../../state/ducks/books/action";
-import {Container} from "reactstrap";
+import { connect } from "react-redux";
+import { Books, FilterSortBar } from "../../components";
+import { getBooks } from "../../state/ducks/books/action";
+import { Container } from "reactstrap";
 
-class Homepage extends React.Component{
-  constructor(props){
+class Homepage extends React.Component {
+  constructor(props) {
     super(props)
   }
 
   componentDidMount() {
-      this.props.getBooks();
+    this.props.getBooks();
   }
 
-  render(){
-    if(this.props.loading){
+  render() {
+    if (this.props.loading) {
       return <h1>BOOKS ARE LOADING...</h1>
     }
     const allBooks = this.props.books;
     let filteredBooks = [];
     /// Categorye gore filter
-    if(this.props.filter){
+    if (this.props.filter) {
       filteredBooks = allBooks.filter((book) => {
         return book.category === this.props.filter
       })
-    }else{
+    } else {
       filteredBooks = allBooks;
     }
 
     /// Searchteme gore filter
-    if(this.props.searchTerm){
+    if (this.props.searchTerm) {
       filteredBooks = filteredBooks.filter((book) => {
-        return book.title.toLowerCase().indexOf(this.props.searchTerm.toLowerCase()) > -1
+        return book[this.props.dropDownValue].toLowerCase().indexOf(this.props.searchTerm.toLowerCase()) > -1
       })
     }
 
     // Sorting
     let sortedBooks = [];
-    if(this.props.sortTerm){
+    if (this.props.sortTerm) {
       sortedBooks = [...filteredBooks].sort((book1, book2) => {
-         console.log(book1, book2, this.props.sortTerm);
-          return parseInt(book2[this.props.sortTerm]) - parseInt(book1[this.props.sortTerm])
+        return parseInt(book2[this.props.sortTerm]) - parseInt(book1[this.props.sortTerm])
       });
-    }else{
+    } else {
       sortedBooks = filteredBooks;
     }
 
 
     let books = "";
-    if(sortedBooks.length < 1){
+    if (sortedBooks.length < 1) {
       books = <h2>NO BOOKS HERE</h2>
-    }else{
-      books = <Books items={sortedBooks}/>;
+    } else {
+      books = <Books items={sortedBooks} />;
     }
     return <div>
       <FilterSortBar />
@@ -70,7 +69,8 @@ const mapStateToProps = (state) => {
     loading: state.books.loading,
     filter: state.books.filter,
     searchTerm: state.books.searchTerm,
-    sortTerm: state.books.sortTerm
+    sortTerm: state.books.sortTerm,
+    dropDownValue: state.books.searchBy
   }
 };
 

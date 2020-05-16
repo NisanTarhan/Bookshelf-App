@@ -1,19 +1,27 @@
 import React from 'react';
+import { connect } from "react-redux";
 import Book from "./Book";
-import {Col, Row} from "reactstrap";
+import { Col } from "reactstrap";
+import { StyledBooks } from './BooksStyled';
 
 const Books = (props) => {
     return (
-        <Row>
+        <StyledBooks direction={props.direction}>
             {
                 props.items.map((item) => {
-                    return <Col xs={3}>
+                    return <Col key={item} xs={3}>
                         <Book {...item} />
                     </Col>
                 })
             }
-        </Row>
+        </StyledBooks>
     );
 };
 
-export default Books;
+const mapStateToProps = state => {
+    return {
+        direction: state.books.direction
+    };
+}
+
+export default connect(mapStateToProps)(Books);

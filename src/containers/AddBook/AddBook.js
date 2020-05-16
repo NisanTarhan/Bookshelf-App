@@ -1,11 +1,11 @@
 import React from "react";
 import { AddBookForm } from "../../components";
-import { Row, Col } from "reactstrap";
+import { Row, Col, Container } from "reactstrap";
 import axios from "axios";
-import {apiHost} from "../../constants";
+import { apiHost } from "../../constants";
 
 class AddBook extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             book: ""
@@ -14,7 +14,7 @@ class AddBook extends React.Component {
 
     componentDidMount() {
         const id = this.props.routerProps.match.params.id;
-        if(id){
+        if (id) {
             axios.get(`${apiHost}/books/${id}`).then((result) => {
                 this.setState({
                     book: result.data
@@ -23,19 +23,21 @@ class AddBook extends React.Component {
         }
     }
 
-    render(){
+    render() {
         const isEdit = this.props.componentProps.isEdit;
         const id = this.props.routerProps.match.params.id;
         return (
             <Row>
-                <Col xs={12}>
-                    {
-                        isEdit ? <h3>Edit book</h3>: <h3>Add a new book</h3>
-                    }
-                </Col>
-                <Col xs={12}>
-                    <AddBookForm isEdit={isEdit} book={this.state.book}/>
-                </Col>
+                <Container>
+                    <Col xs={12}>
+                        {
+                            isEdit ? <h3>Edit book</h3> : <h3>Add a new book</h3>
+                        }
+                    </Col>
+                    <Col xs={12}>
+                        <AddBookForm isEdit={isEdit} book={this.state.book} />
+                    </Col>
+                </Container>
             </Row>
         );
     }

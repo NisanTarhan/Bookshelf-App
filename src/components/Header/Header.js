@@ -29,7 +29,7 @@ const Header = () => {
           <Nav className="mr-auto" navbar>
             {navigation.left.map((nav) => {
               return (
-                <NavItem>
+                <NavItem key={nav.to}>
                   <NavLink tag={Link} to={nav.to}>
                     {nav.title}
                   </NavLink>
@@ -39,7 +39,7 @@ const Header = () => {
           </Nav>
           {navigation.right.map((nav) => {
             return (
-              <NavbarText>
+              <NavbarText key={nav.to}>
                 <NavLink tag={Link} to={nav.to}>
                   {nav.title}
                 </NavLink>

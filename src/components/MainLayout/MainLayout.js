@@ -12,11 +12,11 @@ class MainLayout extends Component {
   }
 
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     const Children = this.props.children;
     return (
       <div>
-        <Children routerProps={this.props.routerProps} componentProps={this.props.componentProps}/>
+        <Children routerProps={this.props.routerProps} componentProps={this.props.componentProps} />
       </div>
     );
   }
