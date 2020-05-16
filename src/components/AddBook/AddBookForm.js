@@ -19,12 +19,12 @@ const AddBookForm = (props) => {
   let initialValues = {
     title: "",
     author: "",
-    category: "",
+    category: "JavaScript",
     description: "",
-    rating: "",
+    rating: "5",
     imageUrl: "",
     goodReadsUrl: "",
-    status: "",
+    status: "Not read",
     review: ""
   };
   if (props.isEdit && props.book) {

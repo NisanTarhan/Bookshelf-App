@@ -53,6 +53,17 @@ const booksReducer = (state = initialState, action) => {
                 ...state,
                 direction: action.payload
             }
+        case Actions.UPDATE_BOOK:
+            return {
+                ...state,
+                data: state.data.map(book => {
+                    if (book.id === action.payload.id) {
+                        return action.payload;
+                    } else {
+                        return book;
+                    }
+                })
+            }
         default:
             return state;
     }
